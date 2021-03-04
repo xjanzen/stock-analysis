@@ -4,12 +4,13 @@
 We're refactoring a previous excel sheet that allowed you to look at a set of stock data and analyse those stocks. We need to refactor the code to allow it to work more efficiently and only loop through the stock data once instead of going through all the data for every separate stock. This is to help our friend Steve expand on his previous ask of analyzing stocks to allow him to potentially look through more stock data faster and more efficiently than before
 
 ## Results
-###Timing
+### Timing
 Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds:
-[VBA Challenge 2017](resources/VBA_Challenge_2017.png)
-[VBA Challenge 2018](resources/VBA_Challenge_2018.png)
+|VBA Challenge 2017|VBA Challenge 2018|
+|||
+|![VBA Challenge 2017](resources/VBA_Challenge_2017.png)|![VBA Challenge 2018](resources/VBA_Challenge_2018.png)|
 
-###Code Changes
+### Code Changes
 Before we had setup the code to run through an array of stock codes and for each stock it would run through all the stock data we had and return the relevant stock data to us. We used a nested for loop for this with the parent for loop going through the stock codes and the child loop going through the whole data set for each stock code:
 ```
     For i = 0 To 11
@@ -70,10 +71,10 @@ To speed this up and only require a single loop through all the data we changed 
 ```
 And then we use a separate for loop to output the data we collected in the separate arrays
 
-##Summary
-###Advantages
+## Summary
+### Advantages
 This new setup allows for the macro to run very efficiently and quickly allowing it to chew through large amounts of data quickly. The original would require an additional run through the whole data set for every new stock you want to check and the data set would only get bigger as well, while the refactored code will only need to run through the additional lines added to the data set.
-###Disadvantages
+### Disadvantages
 Because of how the for loops are setup, the sorting of the stock data set has a huge impact. If we change the dates to not be chronological it will mess up the Return and if we don’t have all the data for each stock grouped together it will mess up even more.
-###Conclusion
+### Conclusion
 The disadvantage was already prevalent in the original code while the advantage of this refactored code is very telling. It’s a large improvement in almost all cases this would be required.
