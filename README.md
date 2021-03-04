@@ -6,10 +6,8 @@ We're refactoring a previous excel sheet that allowed you to look at a set of st
 ## Results
 ###Timing
 Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds:
-
-![VBA Challenge 2017](resources/VBA_Challenge_2017.png)
-
-![VBA Challenge 2018](resources/VBA_Challenge_2018.png)
+[VBA Challenge 2017](resources/VBA_Challenge_2017.png)
+[VBA Challenge 2018](resources/VBA_Challenge_2018.png)
 
 ###Code Changes
 Before we had setup the code to run through an array of stock codes and for each stock it would run through all the stock data we had and return the relevant stock data to us. We used a nested for loop for this with the parent for loop going through the stock codes and the child loop going through the whole data set for each stock code:
