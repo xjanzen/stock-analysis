@@ -95,4 +95,4 @@ And then we use a separate for loop to output the data we collected in the separ
   - Con: can be a little more difficult to follow the logic
 
 ### Conclusion
-While the process of refactoring code can be cumbersome depending on the original code it's usually worthwile and can hopefully minimize the amount of code while maximizing the speed and versatility of the code allowing it to run in more situations than the one it's currently used for and at the very least allow for expansion on the current data set the code is looking at. 
+While the process of refactoring code can be cumbersome depending on the original code it's usually worthwile and can hopefully minimize the amount of code while maximizing the speed and versatility of the code. This allows it to run in more situations than the one it's currently used for and should allow for expansion on the current data set the code is looking at. 
