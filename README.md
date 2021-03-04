@@ -73,8 +73,26 @@ And then we use a separate for loop to output the data we collected in the separ
 
 ## Summary
 ### Advantages
-This new setup allows for the macro to run very efficiently and quickly allowing it to chew through large amounts of data quickly. The original would require an additional run through the whole data set for every new stock you want to check and the data set would only get bigger as well, while the refactored code will only need to run through the additional lines added to the data set.
+ -The process of refactoring the code
+  -Pro: we can double check our code to make sure there are no mistakes
+  -Pro: we can make sure we're using the fastest methods possible to do the required tasks and allow for expansion on the original data set
+ -Original Code
+  -Pro: easy to setup and the logic is easy to follow in a step by step process
+ -Refactored code
+  -Pro: runs very fast because it only needs to run through the data set once
+  -Pro: a little easier to add more data and only needs to run through the new lines added
+
 ### Disadvantages
-Because of how the for loops are setup, the sorting of the stock data set has a huge impact. If we change the dates to not be chronological it will mess up the Return and if we don’t have all the data for each stock grouped together it will mess up even more.
+ -The process of refactoring the code
+  -Con: it can be difficult to find better/faster ways to do something when the current logic is there in front of you
+  -Con: takes more time and ideally the person who initially setup the code included comments as code can be difficult to read otherwise
+ -Original Code
+  -Con: takes a long time to run
+  -Con: not very mutable, the more lines you add to the data set and the more stocks you want to check the longer it will take to run as the code will have to run through the whole data set for each new stock and for every line added your adding multiple lines the code has to run through since it goes through the whole data set multiple times
+  -Con: depends on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it can mess up certain data like the Return
+ -Refactored code
+  -Con: depends even more heavily than the original on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it will mess up almost all data points
+  -Con: can be a little more difficult to follow the logic
+
 ### Conclusion
 The disadvantage was already a problem in the original code while the advantage of this refactored code is very telling. It’s a large improvement in almost all cases this would be required.
