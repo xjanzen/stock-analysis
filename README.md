@@ -7,7 +7,7 @@ We're refactoring a previous excel sheet that allowed you to look at a set of st
 ### Timing
 Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds:
 |VBA Challenge 2017|VBA Challenge 2018|
-|||
+|----|----|
 |![VBA Challenge 2017](resources/VBA_Challenge_2017.png)|![VBA Challenge 2018](resources/VBA_Challenge_2018.png)|
 
 ### Code Changes
