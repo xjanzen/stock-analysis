@@ -1,98 +1,34 @@
-# Stock Analysis
+# Kickstarting with Excel
 
 ## Overview of Project
-We're refactoring a previous excel sheet that allowed you to look at a set of stock data and analyse those stocks. We need to refactor the code to allow it to work more efficiently and only loop through the stock data once instead of going through all the data for every separate stock. This is to help our friend Steve expand on his previous ask of analyzing stocks to allow him to potentially look through more stock data faster and more efficiently than before.
+We're presenting and visualizing data from a set of Kickstarter campaigns based on their launch dates and funding goals along with whether or not they were successful, failed, or were cancelled.
+
+### Purpose
+We're helping our friend Louise analyze how Kickstarter campaigns have done in the past so she can plan out her own campaign for her play to give it the best chance of success as well as seeing in general how theater and play categories are doing on Kickstarter.
+
+## Analysis and Challenges
+### Analysis of Outcomes Based on Launch Date
+![Theater Outcomes vs Launch](resources/Theater_Outcomes_vs_Launch.png)
+
+For this portion of the analysis we wanted to show the success/failure/cancelled distribution over the months of the year of all the 'theater' campaigns. We created a pivot table of the data by using the 'Date Created Conversion' and showing just the month portion of that date for the rows with the outcome of the campaign as the columns. We used this pivot table to create the above graph which allows you to better visualize the distirbution of the outcomes of the campaigns based on the month they launched.
+
+### Analysis of Outcomes Based on Goals
+![Outcomes vs Goals](resources/Outcomes_vs_Goals.png)
+
+For this portion of the analysis we wanted to get a better idea of the outcomes of the campaigns based on how much money their initial goals for the campaign were for all campaigns labelled as 'plays'. To do this we took all campaigns with the 'plays' subcategory and split them into 12 ascending groups starting with <$1K and then going up by multiples of $5K with the last being all campaigns with over $50K as a goal. We setup columns to first count the number of campaigns and then to find the percentage of campaigns in each of the three different outcomes available. We took that data and input it onto the above graph to show the percentage of successful/failed/cancelled campaigns in each goal category we setup.
+
+### Challenges and Difficulties Encountered
+While I didn't run into any major difficulties it's important to carefully read the instructions to make sure you don't accidentally miss a step (ie. filtering the whole data set to only include 'plays' or 'theater' data) which can cause issues when double checking your results against the graphs shown. You must also be careful when making formulas for tables, especially if you're going to be copy/pasting or dragging them around as it's very important to make sure you have the correct cell references which can go wrong depending on which cell references you've locked and how you're copying the formula.
 
 ## Results
-### Timing
-Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds. This should only get more noticeable the larger the data set gets:
-|VBA Challenge 2017|VBA Challenge 2018|
-|----|----|
-|![VBA Challenge 2017](resources/VBA_Challenge_2017.png)|![VBA Challenge 2018](resources/VBA_Challenge_2018.png)|
-
-### Code Changes
-Before we had setup the code to run through an array of stock codes and for each stock it would run through all the stock data we had and return the relevant stock data to us. We used a nested for loop for this with the parent for loop going through the stock codes and the child loop going through the whole data set for each stock code:
-```
-    For i = 0 To 11
-        'set variables for each loop through the rows
-        totalVolume = 0
-        ticker = tickers(i)
-        
-        'loop over all the rows, once for each ticker
-        For j = 2 To RowCount
-            Worksheets("2018").Activate
-            
-            If Cells(j, 1).Value = ticker Then
-                'increase totalVolume if current ticker
-                totalVolume = totalVolume + Cells(j, 8).Value
-            End If
-
-            If Cells(j, 1).Value = ticker And Cells(j - 1, 1).Value <> ticker Then
-                'set starting price of current ticker
-                startingPrice = Cells(j, 6).Value
-            End If
-    
-            If Cells(j, 1).Value = ticker And Cells(j + 1, 1).Value <> ticker Then
-                'set ending price of current ticker
-                endingPrice = Cells(j, 6).Value
-            End If
-    
-        Next j
-        
-    Worksheets("All Stocks Analysis").Activate
-    Cells(4 + i, 1).Value = ticker
-    Cells(4 + i, 2).Value = totalVolume
-    Cells(4 + i, 3).Value = endingPrice / startingPrice - 1
-    Next i
-```
-To speed this up and only require a single loop through all the data we changed the code to use arrays so we could loop through the arrays as we went through each row in the data and change the stock we were looking at depending on the row, storing each stocks data in the arrays as we went:
-```
-    For i = 2 To RowCount
-    
-        '3a) Increase volume for current ticker
-        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
-        
-        '3b) Check if the current row is the first row with the selected tickerIndex.
-        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
-            'if it matches set starting price
-            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
-        End If
-        
-        '3c) check if the current row is the last row with the selected ticker
-        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
-            'if it's the last  row with the ticker, set the ending price
-            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
-            
-            '3d) and increase the tickerIndex.
-            tickerIndex = tickerIndex + 1
-        End If
-    
-    Next i
-```
-And then we use a separate for loop to output the data we collected in the separate arrays
-
-## Summary
-### Advantages
- -The process of refactoring the code
-  -Pro: we can double check our code to make sure there are no mistakes
-  -Pro: we can make sure we're using the fastest methods possible to do the required tasks and allow for expansion on the original data set
- -Original Code
-  -Pro: easy to setup and the logic is easy to follow in a step by step process
- -Refactored code
-  -Pro: runs very fast because it only needs to run through the data set once
-  -Pro: a little easier to add more data and only needs to run through the new lines added
-
-### Disadvantages
- -The process of refactoring the code
-  -Con: it can be difficult to find better/faster ways to do something when the current logic is there in front of you
-  -Con: takes more time and ideally the person who initially setup the code included comments as code can be difficult to read otherwise
- -Original Code
-  -Con: takes a long time to run
-  -Con: not very mutable, the more lines you add to the data set and the more stocks you want to check the longer it will take to run as the code will have to run through the whole data set for each new stock and for every line added your adding multiple lines the code has to run through since it goes through the whole data set multiple times
-  -Con: depends on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it can mess up certain data like the Return
- -Refactored code
-  -Con: depends even more heavily than the original on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it will mess up almost all data points
-  -Con: can be a little more difficult to follow the logic
-
-### Conclusion
-The disadvantage was already a problem in the original code while the advantage of this refactored code is very telling. It’s a large improvement in almost all cases this would be required.
+- **What are two conclusions you can draw about the Outcomes based on Launch Date?**
+  - It appears that May/June/July have the best chances to successfully fund their campaigns, in that order
+  - Even with the large fluctuation between the number of campaigns per month, the number of failed campaigns was fairly consistent. This implies that the number of campaigns in the month didn't have a large effect on the outcome of the campaign.
+- **What can you conclude about the Outcomes based on Goals?**
+  - The cheaper campaigns (<$5K) seem to have the best chances of success along with a sweetspot around $35K-45K which also had a decent success rate but was still lower than the cheaper campaigns. Going over $45K doesn't seem to be a great idea though with none of the campaigns between $45K-50k succeeding and only 13% of the campaigns above that succeeding
+- **What are some limitations of this dataset?**
+  - There isn't actually a whole lot of data for the plays and theater campaigns, while the entire data set is coming from 2009-2017 there's actually only really three years of campaign data for theater with very few campaigns coming in on the other years
+- **What are some other possible tables and/or graphs that we could create?**
+  - While our two analyses are useful on their own they're representing different sets of data (Theater/Plays). Because Lousie was looking at Kickstarter for her play we probably should've been more focused on that subcategory. So setting up an analysis of the outcomes based on launch date but have the data set filtered to only the 'plays' subcategory so we can compare two different graphs on the data about plays allowing us to further narrow down the best time and goal range to run a successful play Kickstarter. Keeping in the theater data could skew our data as the theater category doesn't always mean plays.
+  - It also may be a good idea to do something that looks at more of a trend over time, maybe a graph similar to the 'Outcomes Based on Launch Date' but include the year along with the month so you can see if people have started to get more or less interested in plays in general as time has gone by. It may not be useful if she's putting this campaign out anyways but it would give her an idea of people's current interest on Kickstarter for plays.
+  - We should probably have added a country filter to the data we pulled. While this doesn't necessarily matter for some campaigns, plays are usually fairly regional and so could the interest in funding said plays.
