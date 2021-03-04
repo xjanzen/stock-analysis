@@ -1,11 +1,11 @@
 # Stock Analysis
 
 ## Overview of Project
-We're refactoring a previous excel sheet that allowed you to look at a set of stock data and analyse those stocks. We need to refactor the code to allow it to work more efficiently and only loop through the stock data once instead of going through all the data for every separate stock. This is to help our friend Steve expand on his previous ask of analyzing stocks to allow him to potentially look through more stock data faster and more efficiently than before
+We're refactoring a previous excel sheet that allowed you to look at a set of stock data and analyse those stocks. We need to refactor the code to allow it to work more efficiently and only loop through the stock data once instead of going through all the data for every separate stock. This is to help our friend Steve expand on his previous ask of analyzing stocks to allow him to potentially look through more stock data faster and more efficiently than before.
 
 ## Results
 ### Timing
-Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds:
+Before refactoring the code it would take anywhere from a couple seconds to sometimes going a little over 10 seconds. Now I have yet to run the code and have it take longer than 0.2 seconds, usually taking ~0.10-0.15 seconds. This should only get more noticeable the larger the data set gets:
 |VBA Challenge 2017|VBA Challenge 2018|
 |----|----|
 |![VBA Challenge 2017](resources/VBA_Challenge_2017.png)|![VBA Challenge 2018](resources/VBA_Challenge_2018.png)|
@@ -45,7 +45,7 @@ Before we had setup the code to run through an array of stock codes and for each
     Cells(4 + i, 3).Value = endingPrice / startingPrice - 1
     Next i
 ```
-To speed this up and only require a single loop through all the data we changed the code to use arrays so we could loop through the arrays as we went through each row in the data and change the stock we were looking at depending on the row:
+To speed this up and only require a single loop through all the data we changed the code to use arrays so we could loop through the arrays as we went through each row in the data and change the stock we were looking at depending on the row, storing each stocks data in the arrays as we went:
 ```
     For i = 2 To RowCount
     
@@ -77,4 +77,4 @@ This new setup allows for the macro to run very efficiently and quickly allowing
 ### Disadvantages
 Because of how the for loops are setup, the sorting of the stock data set has a huge impact. If we change the dates to not be chronological it will mess up the Return and if we don’t have all the data for each stock grouped together it will mess up even more.
 ### Conclusion
-The disadvantage was already prevalent in the original code while the advantage of this refactored code is very telling. It’s a large improvement in almost all cases this would be required.
+The disadvantage was already a problem in the original code while the advantage of this refactored code is very telling. It’s a large improvement in almost all cases this would be required.
