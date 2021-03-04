@@ -86,9 +86,9 @@ And then we use a separate for loop to output the data we collected in the separ
 - The process of refactoring the code:
   - Con: it can be difficult to find better/faster ways to do something when the current logic is there in front of you
   - Con: takes more time and ideally the person who initially setup the code included comments as code can be difficult to read otherwise
-- Original Code
-  - Con: takes a long time to run:
-  - Con: not very mutable, the more lines you add to the data set and the more stocks you want to check the longer it will take to run as the code will have to run through the whole data set for each new stock and for every line added your adding multiple lines the code has to run through since it goes through the whole data set multiple times
+- Original Code:
+  - Con: takes a long time to run, especially if we start adding more data to the set
+  - Con: not very mutable, the more lines you add to the data set and the more stocks you want to check the longer it will take to run as the code will have to run through the whole data set for each new stock and for every line added you're adding multiple lines the code has to run through since it goes through the whole data set multiple times
   - Con: depends on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it can mess up certain data like the Return
 - Refactored code:
   - Con: depends even more heavily than the original on the sorting of the data set. If it's not in chronological order or the stock codes aren't grouped together it will mess up almost all data points
